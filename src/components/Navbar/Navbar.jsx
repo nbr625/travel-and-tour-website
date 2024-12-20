@@ -62,7 +62,6 @@ const Navbar = ({ handleOrderPopup }) => {
               <Link to={"/"} onClick={() => window.scrollTo(0, 0)}>
                 <img src={Logo} alt="" className="h-16" />
               </Link>
-              {/* <span>TCJ Tourism</span> */}
             </div>
             <div className="hidden md:block">
               <ul className="flex items-center gap-6 ">
