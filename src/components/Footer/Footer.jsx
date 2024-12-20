@@ -142,7 +142,7 @@ const Footer = () => {
           </div>
           <div>
             <div className="text-center py-5 border-t-2 border-gray-300/50 bg-primary text-white">
-              Made by Nicolas Berrizbeitia || <a className="text-black font-bold" href="https://github.com/nbr625/travel-tour-website">Github Repo Link</a>
+              Made by Nicolas Berrizbeitia || <a className="text-black font-bold" href="https://github.com/nbr625/travel-and-tour-website">Github Repo Link</a>
             </div>
           </div>
         </div>
