@@ -1,32 +1,34 @@
 import React, { useState } from "react";
 import Logo from "../../assets/logo.png";
-import { NavLink, Link } from "react-router-dom";
+import {
+  NavLink,
+  Link,
+} from "react-router-dom";
 import ResponsiveMenu from "./ResponsiveMenu";
 import {
   HiMenuAlt3,
   HiMenuAlt1,
 } from "react-icons/hi";
-
-export const NavbarLinks = [
-  { name: "Home", link: "/" },
-  { name: "Destinations", link: "/best-places" },
-  { name: "Journal", link: "/blogs" },
-  { name: "About", link: "/about" },
-];
+import { NavbarLinks } from "../../data/navigation";
 
 const navLinkClass = ({ isActive }) =>
   `font-medium transition hover:text-primary ${
-    isActive ? "text-primary" : "text-slate-700"
+    isActive
+      ? "text-primary"
+      : "text-slate-700"
   }`;
 
 const Navbar = ({ handleOrderPopup }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] =
+    useState(false);
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-white/95 text-slate-900 shadow-md backdrop-blur-md">
       <div className="hidden bg-gradient-to-r from-primary to-secondary text-white sm:block">
         <div className="container flex items-center justify-between py-1 text-xs font-medium tracking-wide">
-          <p>Curated ideas for more thoughtful trips</p>
+          <p>
+            Curated ideas for more thoughtful trips
+          </p>
           <p>Travel discovery prototype</p>
         </div>
       </div>
@@ -34,7 +36,9 @@ const Navbar = ({ handleOrderPopup }) => {
       <div className="container flex items-center justify-between py-2">
         <Link
           to="/"
-          onClick={() => window.scrollTo(0, 0)}
+          onClick={() =>
+            window.scrollTo(0, 0)
+          }
           aria-label="TravelloGo home"
         >
           <img
@@ -50,7 +54,9 @@ const Navbar = ({ handleOrderPopup }) => {
               <NavLink
                 to={item.link}
                 className={navLinkClass}
-                onClick={() => window.scrollTo(0, 0)}
+                onClick={() =>
+                  window.scrollTo(0, 0)
+                }
               >
                 {item.name}
               </NavLink>
@@ -61,7 +67,9 @@ const Navbar = ({ handleOrderPopup }) => {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => handleOrderPopup?.()}
+            onClick={() =>
+              handleOrderPopup?.()
+            }
             className="rounded-full bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             Plan a trip
@@ -71,7 +79,9 @@ const Navbar = ({ handleOrderPopup }) => {
             type="button"
             className="rounded-md p-1 md:hidden"
             onClick={() =>
-              setShowMenu((current) => !current)
+              setShowMenu(
+                (current) => !current
+              )
             }
             aria-expanded={showMenu}
             aria-controls="mobile-navigation"
