@@ -1,82 +1,138 @@
 import React from "react";
 
-const Hero = () => {
-  const [priceValue, setPriceValue] = React.useState(30);
+const Hero = ({ onSearch }) => {
+  const [destination, setDestination] = React.useState("");
+  const [travelDate, setTravelDate] = React.useState("");
+  const [maxPrice, setMaxPrice] = React.useState(2500);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    onSearch?.({
+      destination: destination.trim(),
+      travelDate,
+      maxPrice,
+    });
+  };
 
   return (
-    <div className=" bg-black/20 h-full">
-      <div className="h-full flex justify-center items-center p-4 bg-primary/10">
-        <div className="container grid grid-cols-1 gap-4">
-          <div className="text-white">
-            <p data-aos="fade-up" className="text-sm">
-              Our Packages
-            </p>
-            <p
-              data-aos="fade-up"
-              data-aos-delay="300"
-              className="font-bold text-3xl"
-            >
-              Search Your Destination
-            </p>
-          </div>
-          <div
+    <section
+      id="home"
+      className="flex h-full items-center bg-slate-950/55 px-4"
+    >
+      <div className="container">
+        <div className="max-w-3xl text-white">
+          <p
             data-aos="fade-up"
-            data-aos-delay="600"
-            className="space-y-4 bg-white rounded-md p-4 relative"
+            className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-200"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-3">
-              <div>
-                <label htmlFor="destination" className="opacity-70">
-                  Searh your Destination
-                </label>
-                <input
-                  type="text"
-                  name="destination"
-                  id="destination"
-                  placeholder="Dubai"
-                  className="w-full bg-gray-100 my-2 range accent-primary focus:outline-primary focus:outline outline-1 rounded-full p-2"
-                />
-              </div>
-              <div>
-                <label htmlFor="destination" className="opacity-70">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  name="destination"
-                  id="destination"
-                  className="w-full !placeholder-slate-400 bg-gray-100 my-2 rounded-full focus:outline-primary focus:outline outline-1 p-2"
-                />
-              </div>
-              <div>
-                <label htmlFor="destination" className="opacity-70 block">
-                  <div className="w-full flex justify-between items-center">
-                    <p>Max Price</p>
-                    <p className="font-bold text-xl">$ {priceValue}</p>
-                  </div>
-                </label>
-                <div className=" bg-gray-100 rounded-full p-2 flex items-center justify-center ">
-                  <input
-                    type="range"
-                    name="destination"
-                    id="destination"
-                    className="appearance-none w-full bg-gradient-to-r from-primary to-secondary h-2 rounded-full my-2"
-                    min="150"
-                    max="1000"
-                    value={priceValue}
-                    step="10"
-                    onChange={(e) => setPriceValue(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-            <button className="bg-gradient-to-r from-primary to-secondary text-white hover:scale-105 px-4 py-2 rounded-full duration-200 absolute -bottom-5 left-1/2 -translate-x-1/2">
-              Search Now
-            </button>
-          </div>
+            Curated travel inspiration
+          </p>
+
+          <h1
+            data-aos="fade-up"
+            data-aos-delay="150"
+            className="mt-3 text-4xl font-bold leading-tight sm:text-6xl"
+          >
+            Find a trip that fits the way you want to travel
+          </h1>
+
+          <p
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="mt-5 max-w-2xl text-base leading-7 text-white/85 sm:text-lg"
+          >
+            Compare city breaks, cultural journeys, and restorative escapes
+            with clear pricing and practical guidance.
+          </p>
         </div>
+
+        <form
+          data-aos="fade-up"
+          data-aos-delay="450"
+          onSubmit={handleSubmit}
+          className="relative mt-8 rounded-2xl bg-white p-5 shadow-2xl sm:p-6"
+        >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+            <div>
+              <label
+                htmlFor="destination"
+                className="text-sm font-semibold text-slate-700"
+              >
+                Destination
+              </label>
+
+              <input
+                id="destination"
+                name="destination"
+                type="search"
+                value={destination}
+                onChange={(event) => setDestination(event.target.value)}
+                placeholder="Try Sydney or India"
+                className="mt-2 w-full rounded-full bg-slate-100 px-4 py-3 text-slate-900 outline-none ring-primary transition focus:ring-2"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="travel-date"
+                className="text-sm font-semibold text-slate-700"
+              >
+                Preferred date
+              </label>
+
+              <input
+                id="travel-date"
+                name="travelDate"
+                type="date"
+                value={travelDate}
+                onChange={(event) => setTravelDate(event.target.value)}
+                className="mt-2 w-full rounded-full bg-slate-100 px-4 py-3 text-slate-900 outline-none ring-primary transition focus:ring-2"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="max-price"
+                  className="text-sm font-semibold text-slate-700"
+                >
+                  Maximum budget
+                </label>
+
+                <output
+                  htmlFor="max-price"
+                  className="font-bold text-slate-900"
+                >
+                  ${Number(maxPrice).toLocaleString()}
+                </output>
+              </div>
+
+              <input
+                id="max-price"
+                name="maxPrice"
+                type="range"
+                min="500"
+                max="3000"
+                step="50"
+                value={maxPrice}
+                onChange={(event) =>
+                  setMaxPrice(Number(event.target.value))
+                }
+                className="mt-5 h-2 w-full cursor-pointer appearance-none rounded-full bg-gradient-to-r from-primary to-secondary accent-primary"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="mx-auto mt-6 block rounded-full bg-gradient-to-r from-primary to-secondary px-7 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            Explore matching trips
+          </button>
+        </form>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -12,33 +12,67 @@ import OrderPopup from "../components/OrderPopup/OrderPopup";
 
 const Home = () => {
   const [orderPopup, setOrderPopup] = React.useState(false);
+  const [selectedDestination, setSelectedDestination] = React.useState("");
+  const [searchCriteria, setSearchCriteria] = React.useState(null);
 
-  const handleOrderPopup = () => {
-    setOrderPopup(!orderPopup);
+  const handleOrderPopup = (destination = "") => {
+    setSelectedDestination(destination);
+    setOrderPopup(true);
   };
+
+  const handleSearch = (criteria) => {
+    setSearchCriteria(criteria);
+
+    requestAnimationFrame(() => {
+      document
+        .getElementById("destinations")
+        ?.scrollIntoView({ behavior: "smooth" });
+    });
+  };
+
   return (
-    <>
-      <div>
-        <div className="h-[700px] relative">
-          <video
-            autoPlay
-            loop
-            muted
-            className="absolute right-0 top-0 h-[700px] w-full object-cover z-[-1]"
-          >
-            <source src={NatureVid} type="video/mp4" />
-          </video>
-          <Hero />
-        </div>
-        <Places handleOrderPopup={handleOrderPopup} />
-        <BannerPic img={BannerImg} />
-        <BlogsComp />
-        <Banner />
-        <BannerPic img={Banner2} />
-        <Testimonial />
-        <OrderPopup orderPopup={orderPopup} setOrderPopup={setOrderPopup} />
+    <main>
+      <div className="relative h-[760px]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
+        >
+          <source src={NatureVid} type="video/mp4" />
+        </video>
+
+        <Hero onSearch={handleSearch} />
       </div>
-    </>
+
+      <Places
+        searchCriteria={searchCriteria}
+        onClearSearch={() => setSearchCriteria(null)}
+        handleOrderPopup={handleOrderPopup}
+      />
+
+      <BannerPic
+        img={BannerImg}
+        alt="Travelers overlooking a scenic destination"
+      />
+
+      <BlogsComp />
+      <Banner />
+
+      <BannerPic
+        img={Banner2}
+        alt="A scenic landscape selected for travel inspiration"
+      />
+
+      <Testimonial />
+
+      <OrderPopup
+        orderPopup={orderPopup}
+        setOrderPopup={setOrderPopup}
+        selectedDestination={selectedDestination}
+      />
+    </main>
   );
 };
 

@@ -1,113 +1,96 @@
 import React from "react";
 import Slider from "react-slick";
 
-const testimonialData = [
+const principles = [
   {
     id: 1,
-    name: "Samuel",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
-    img: "https://picsum.photos/101/101",
+    eyebrow: "Discover",
+    title: "Start with the decisions that matter",
+    text: "Destination, timing, travel style, and budget are visible early so people can narrow their choices without digging through the interface.",
   },
   {
-    id: 1,
-    name: "John Doe",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
-    img: "https://picsum.photos/102/102",
+    id: 2,
+    eyebrow: "Compare",
+    title: "Keep important details consistent",
+    text: "Every trip card follows the same information hierarchy, making locations, themes, descriptions, and starting prices easy to scan.",
   },
   {
-    id: 1,
-    name: "Smith",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque reiciendis inventore iste ratione ex alias quis magni at optio",
-    img: "https://picsum.photos/103/103",
+    id: 3,
+    eyebrow: "Continue",
+    title: "Make the next step obvious",
+    text: "Clear calls to action and an accessible inquiry flow help people continue without wondering what will happen after they click.",
   },
 ];
 
 const Testimonial = () => {
-  var settings = {
+  const settings = {
     dots: true,
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
-    pauseOnHover: true,
-    pauseOnFocus: true,
+    autoplay: false,
+    adaptiveHeight: true,
     responsive: [
       {
-        breakpoint: 10000,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 640,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
         },
       },
     ],
   };
+
   return (
-    <>
-      <div data-aos="fade-up" data-aos-duration="300" className="py-10">
-        <div className="container">
-          {/* Header section */}
-          <div className="text-center mb-20 max-w-[400px] mx-auto">
-            <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Testimonial
-            </p>
-            <h1 className="text-3xl font-bold">Testimonial</h1>
-            <p className="text-xs text-gray-400">
-              {" "}
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero
-              nesciunt explicabo a! Laborum delectus aliquam labore, earum rerum
-              quam! Nulla?
-            </p>
-          </div>
-          {/* testimonial section */}
-          <div
-            data-aos="zoom-in"
-            data-aos-duration="300"
-            className="grid grid-cols-1 max-w-[800px] mx-auto gap-6"
-          >
-            <Slider {...settings}>
-              {testimonialData.map(({ id, name, text, img }) => {
-                return (
-                  <div key={id} className="my-6">
-                    <div className="flex flex-col justify-center items-center gap-4 text-center shadow-lg p-4 mx-4 rounded-xl dark:bg-gray-800 bg-primary/10 relative">
-                      <img
-                        src={img}
-                        alt=""
-                        className="rounded-full block mx-auto"
-                      />
-                      <h1 className="text-xl font-bold">{name}</h1>
-                      <p className="text-gray-500 text-sm">{text}</p>
-                      <p className="text-black/20 text-9xl font-serif absolute top-0 right-0">
-                        ,,
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </Slider>
-          </div>
+    <section
+      className="bg-white py-16 text-slate-900"
+      data-aos="fade-up"
+    >
+      <div className="container">
+        <div className="mx-auto mb-10 max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+            Experience principles
+          </p>
+
+          <h2 className="mt-2 text-3xl font-bold sm:text-4xl">
+            Designed around real travel decisions
+          </h2>
+
+          <p className="mt-3 text-slate-600">
+            A focused interface should help people understand their
+            options and move forward with confidence.
+          </p>
+        </div>
+
+        <div
+          data-aos="zoom-in"
+          className="mx-auto max-w-5xl"
+        >
+          <Slider {...settings}>
+            {principles.map(
+              ({ id, eyebrow, title, text }) => (
+                <div key={id} className="px-3 pb-8">
+                  <article className="min-h-[245px] rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm">
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                      {eyebrow}
+                    </p>
+
+                    <h3 className="mt-3 text-2xl font-bold">
+                      {title}
+                    </h3>
+
+                    <p className="mt-4 leading-7 text-slate-600">
+                      {text}
+                    </p>
+                  </article>
+                </div>
+              )
+            )}
+          </Slider>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

@@ -1,148 +1,101 @@
 import React, { useState } from "react";
 import Logo from "../../assets/logo.png";
 import { NavLink, Link } from "react-router-dom";
-import { FaCaretDown } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
-import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
+import {
+  HiMenuAlt3,
+  HiMenuAlt1,
+} from "react-icons/hi";
 
 export const NavbarLinks = [
-  {
-    name: "Home",
-    link: "/",
-  },
-  {
-    name: "About",
-    link: "/about",
-  },
-  {
-    name: "Blogs",
-    link: "/blogs",
-  },
-  {
-    name: "Best Places",
-    link: "/best-places",
-  },
+  { name: "Home", link: "/" },
+  { name: "Destinations", link: "/best-places" },
+  { name: "Journal", link: "/blogs" },
+  { name: "About", link: "/about" },
 ];
 
-const DropdownLinks = [
-  {
-    name: "Our Services",
-    link: "/#services",
-  },
-  {
-    name: "Top Brands",
-    link: "/#mobile_brands",
-  },
-  {
-    name: "Location",
-    link: "/#location",
-  },
-];
+const navLinkClass = ({ isActive }) =>
+  `font-medium transition hover:text-primary ${
+    isActive ? "text-primary" : "text-slate-700"
+  }`;
 
 const Navbar = ({ handleOrderPopup }) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
   return (
-    <>
-      <nav className="fixed top-0 right-0 w-full z-50 bg-white backdrop-blur-sm text-black shadow-md">
-        <div className="bg-gradient-to-r from-primary to-secondary text-white ">
-          <div className="container py-[2px] sm:block hidden">
-            <div className="flex items-center justify-between">
-              <p className="text-sm">20% off on next booking</p>
-              <p>mobile no. +1 123456789</p>
-            </div>
-          </div>
+    <nav className="fixed inset-x-0 top-0 z-50 bg-white/95 text-slate-900 shadow-md backdrop-blur-md">
+      <div className="hidden bg-gradient-to-r from-primary to-secondary text-white sm:block">
+        <div className="container flex items-center justify-between py-1 text-xs font-medium tracking-wide">
+          <p>Curated ideas for more thoughtful trips</p>
+          <p>Travel discovery prototype</p>
         </div>
-        <div className="container py-3 sm:py-0">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4  font-bold text-2xl">
-              <Link to={"/"} onClick={() => window.scrollTo(0, 0)}>
-                <img src={Logo} alt="" className="h-16" />
-              </Link>
-            </div>
-            <div className="hidden md:block">
-              <ul className="flex items-center gap-6 ">
-                <li className="py-4">
-                  <NavLink to="/" activeClassName="active">
-                    Home
-                  </NavLink>
-                </li>
-                <li className="py-4">
-                  <NavLink to="/blogs" activeClassName="active">
-                    Blogs
-                  </NavLink>
-                </li>
-                <li className="py-4">
-                  <NavLink to="/best-places" activeClassName="active">
-                    Best Places
-                  </NavLink>
-                </li>
-                <li className="py-4">
-                  <NavLink to="/about" activeClassName="active">
-                    About
-                  </NavLink>
-                </li>
-                <li className="group relative cursor-pointer">
-                  <a
-                    href="/#home"
-                    className="flex h-[72px] items-center gap-[2px]"
-                  >
-                    Quick Links{" "}
-                    <span>
-                      <FaCaretDown className="transition-all duration-200 group-hover:rotate-180" />
-                    </span>
-                  </a>
-                  <div className="absolute -left-9 z-[9999] hidden w-[150px] rounded-md bg-white p-2 text-black group-hover:block shadow-md ">
-                    <ul className="space-y-3">
-                      {DropdownLinks.map((data) => (
-                        <li key={data.name}>
-                          <a
-                            className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
-                            href={data.link}
-                          >
-                            {data.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                className="bg-gradient-to-r from-primary to-secondary hover:bg-bg-gradient-to-r hover:from-secondary hover:bg-primary transition-all duration-600 text-white px-3 py-1 rounded-full"
-                onClick={() => {
-                  handleOrderPopup();
-                }}
+      </div>
+
+      <div className="container flex items-center justify-between py-2">
+        <Link
+          to="/"
+          onClick={() => window.scrollTo(0, 0)}
+          aria-label="TravelloGo home"
+        >
+          <img
+            src={Logo}
+            alt="TravelloGo"
+            className="h-14 w-auto"
+          />
+        </Link>
+
+        <ul className="hidden items-center gap-7 md:flex">
+          {NavbarLinks.map((item) => (
+            <li key={item.link}>
+              <NavLink
+                to={item.link}
+                className={navLinkClass}
+                onClick={() => window.scrollTo(0, 0)}
               >
-                Book Now
-              </button>
-              {/* Mobile Hamburger icon */}
-              <div className="md:hidden block">
-                {showMenu ? (
-                  <HiMenuAlt1
-                    onClick={toggleMenu}
-                    className=" cursor-pointer transition-all"
-                    size={30}
-                  />
-                ) : (
-                  <HiMenuAlt3
-                    onClick={toggleMenu}
-                    className="cursor-pointer transition-all"
-                    size={30}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+                {item.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => handleOrderPopup?.()}
+            className="rounded-full bg-gradient-to-r from-primary to-secondary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            Plan a trip
+          </button>
+
+          <button
+            type="button"
+            className="rounded-md p-1 md:hidden"
+            onClick={() =>
+              setShowMenu((current) => !current)
+            }
+            aria-expanded={showMenu}
+            aria-controls="mobile-navigation"
+            aria-label={
+              showMenu
+                ? "Close navigation"
+                : "Open navigation"
+            }
+          >
+            {showMenu ? (
+              <HiMenuAlt1 size={30} />
+            ) : (
+              <HiMenuAlt3 size={30} />
+            )}
+          </button>
         </div>
-        <ResponsiveMenu setShowMenu={setShowMenu} showMenu={showMenu} />
-      </nav>
-    </>
+      </div>
+
+      <ResponsiveMenu
+        links={NavbarLinks}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
+    </nav>
   );
 };
 

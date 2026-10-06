@@ -1,70 +1,93 @@
 import React from "react";
 import TravelImg from "../../assets/travelbox.png";
-import { MdFlight, MdOutlineLocalHotel } from "react-icons/md";
+import {
+  MdFlight,
+  MdOutlineLocalHotel,
+} from "react-icons/md";
 import { IoIosWifi } from "react-icons/io";
 import { IoFastFoodSharp } from "react-icons/io5";
 
-const Banner = () => {
-  return (
-    <>
-      <div className="min-h-[550px] bg-gray-100">
-        <div className="min-h-[550px] flex justify-center items-center backdrop-blur-xl py-12 sm:py-0 ">
-          <div className="container">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
-              {/* Image section */}
-              <div data-aos="flip-up">
-                <img
-                  src={TravelImg}
-                  alt="biryani img"
-                  className="max-w-[450px] h-[350px] w-full mx-auto drop-shadow-[5px_5px_12px_rgba(0,0,0,0.7)] object-cover"
-                />
-              </div>
-              {/* text content section */}
-              <div className="flex flex-col justify-center gap-6 sm:pt-0 lg:px-16">
-                <h1
-                  data-aos="fade-up"
-                  className="text-3xl sm:text-4xl font-bold"
+const serviceItems = [
+  {
+    label: "Flexible routes",
+    icon: MdFlight,
+    color: "bg-violet-100 text-violet-700",
+  },
+  {
+    label: "Thoughtful stays",
+    icon: MdOutlineLocalHotel,
+    color: "bg-orange-100 text-orange-700",
+  },
+  {
+    label: "Useful connectivity",
+    icon: IoIosWifi,
+    color: "bg-emerald-100 text-emerald-700",
+  },
+  {
+    label: "Local food notes",
+    icon: IoFastFoodSharp,
+    color: "bg-amber-100 text-amber-700",
+  },
+];
+
+const Banner = () => (
+  <section
+    id="services"
+    className="bg-slate-100 py-16 text-slate-900"
+  >
+    <div className="container">
+      <div className="grid grid-cols-1 items-center gap-10 sm:grid-cols-2">
+        <div data-aos="flip-up">
+          <img
+            src={TravelImg}
+            alt="A compact travel planning kit"
+            className="mx-auto h-[350px] w-full max-w-[470px] rounded-3xl object-cover shadow-2xl"
+          />
+        </div>
+
+        <div className="flex flex-col justify-center gap-6 lg:px-10">
+          <div data-aos="fade-up">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              A clearer way to plan
+            </p>
+
+            <h2 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">
+              Useful details before you commit
+            </h2>
+          </div>
+
+          <p
+            data-aos="fade-up"
+            className="leading-7 text-slate-600"
+          >
+            Each trip concept brings the major decisions into one
+            place, including pace, starting cost, setting, and the
+            practical details that shape the experience.
+          </p>
+
+          <div
+            data-aos="zoom-in"
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+          >
+            {serviceItems.map(
+              ({ label, icon: Icon, color }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-sm"
                 >
-                  Explore all corners of The world with us
-                </h1>
-                <p
-                  data-aos="fade-up"
-                  className="text-sm text-gray-500 tracking-wide leading-8"
-                >
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Eaque reiciendis inventore iste ratione ex alias quis magni at
-                  optio ratione ex alias quis magni at optio
-                  <br />
-                </p>
-                <div data-aos="zoom-in" className="grid grid-cols-2 gap-6">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <MdFlight className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-violet-100 dark:bg-violet-400" />
-                      <p>Flight</p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <MdOutlineLocalHotel className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-orange-100 dark:bg-orange-400" />
-                      <p>Hotel</p>
-                    </div>
-                  </div>
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <IoIosWifi className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-green-100 dark:bg-green-400" />
-                      <p>Wi-fi</p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <IoFastFoodSharp className="text-4xl h-12 w-12 shadow-sm p-4 rounded-full bg-yellow-100 dark:bg-yellow-400" />
-                      <p>Foods</p>
-                    </div>
-                  </div>
+                  <Icon
+                    aria-hidden="true"
+                    className={`h-11 w-11 rounded-full p-3 ${color}`}
+                  />
+                  <span className="font-semibold">{label}</span>
                 </div>
-              </div>
-            </div>
+              )
+            )}
           </div>
         </div>
       </div>
-    </>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Banner;

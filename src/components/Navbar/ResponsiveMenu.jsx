@@ -1,47 +1,60 @@
 import React from "react";
-import { FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { NavbarLinks } from "./Navbar";
+import { NavLink } from "react-router-dom";
 
-const ResponsiveMenu = ({ showMenu, setShowMenu }) => {
-  console.log("showMenu", showMenu);
-  return (
+const ResponsiveMenu = ({
+  links,
+  showMenu,
+  setShowMenu,
+}) => (
+  <>
+    {showMenu && (
+      <button
+        type="button"
+        aria-label="Close navigation"
+        className="fixed inset-0 top-[70px] z-10 bg-slate-950/40 md:hidden"
+        onClick={() => setShowMenu(false)}
+      />
+    )}
+
     <div
+      id="mobile-navigation"
       className={`${
-        showMenu ? "left-0" : "-left-[100%]"
-      } fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-white dark:bg-gray-900 dark:text-white px-8 pb-6 pt-16 text-black transition-all duration-200 md:hidden rounded-r-xl shadow-md`}
+        showMenu
+          ? "translate-x-0"
+          : "-translate-x-full"
+      } fixed bottom-0 left-0 top-[70px] z-20 flex w-[82%] max-w-sm flex-col bg-white px-8 py-10 text-slate-900 shadow-2xl transition-transform duration-300 md:hidden`}
     >
-      <div className="card">
-        <div className="flex items-center justify-start gap-3">
-          <FaUserCircle size={50} />
-          <div>
-            <h1>Hello User</h1>
-            <h1 className="text-sm text-slate-500">Premium user</h1>
-          </div>
-        </div>
-        <nav className="mt-12">
-          <ul className="space-y-4 text-xl">
-            {NavbarLinks.map((data) => (
-              <li>
-                <Link
-                  to={data.link}
-                  onClick={() => setShowMenu(false)}
-                  className="mb-5 inline-block"
-                >
-                  {data.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      <div className="footer">
-        <h1>
-          Made with ❤ by <a href="https://dilshad-ahmed.github.io/">Dilshad</a>{" "}
-        </h1>
-      </div>
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+        Explore TravelloGo
+      </p>
+
+      <ul className="mt-9 space-y-6 text-2xl font-semibold">
+        {links.map((item) => (
+          <li key={item.link}>
+            <NavLink
+              to={item.link}
+              onClick={() => {
+                setShowMenu(false);
+                window.scrollTo(0, 0);
+              }}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-primary"
+                  : "hover:text-primary"
+              }
+            >
+              {item.name}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-auto border-t border-slate-200 pt-6 text-sm leading-6 text-slate-500">
+        A responsive travel discovery concept created by Nicolas
+        Berrizbeitia.
+      </p>
     </div>
-  );
-};
+  </>
+);
 
 export default ResponsiveMenu;
